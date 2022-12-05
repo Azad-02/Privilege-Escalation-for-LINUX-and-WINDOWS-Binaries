@@ -1,0 +1,58 @@
+-->> GAIN ROOT ACCESS OF REMOTE SYSTEM AFTER SETTING UP CONNECTION WITHOUT HAVING ROOT PERMISSION <<--
+
+
+> find /usr/bin -perm -4000
+gives commands with root permission
+
+-> Search for gtfobins on web. Go to its github.io page. Click on SUDO.
+-> Check for the commands that matches from the above list(from /usr/bin) with the lsit of commands in gtfobins page(sudo).
+-> Try and Exploit the misconfiguration of permissions given to these commands.
+
+
+* Once we are inside a System of Remote Machine as a Regular User--
+
+To gain root Access through misconfigurations, use linPEAS Shell Script.
+
+-> Copy the first command under Quick Start, '#From Github' to Attacker Terminal.
+-> Script runs and Scans whole System for Misconfigurations.
+-> After Scan:
+	- If 'Can I read shadow files?' is seen(SHADOW file stores Password in encrypted form<crypt>), it means show is having some misconfigurations. 
+	- Script can read content of SHADOW and is seen in RED.
+	- These passwords can be seen in RED.
+	
+	- Scrolling above. Under 'Interesting Files', we can find more misconfigured commands represented in RED.
+	
+	- Try running these commands from Attacker side using root privilages and it will not ask for root password and your Root in Victim's System.
+	
+	-> To Gain Password from SHADOW file's content(Passwords in Hashed format) :
+		- Search for shadow file
+		> cd /etc
+		> ls shadow
+		> ls passwd
+		- both these files are present in /etc
+		
+		- Get these files in Attacker's System,
+		- On attacker side-
+			> cd /etc
+			> get shadow
+			> get passwd
+			- Downloads both the files from Victim's System
+		
+		- Crack this Hash Value from Shadow using 'John the Ripper'
+			> unshadow passwd shadow > unshadowed.txt	# Combined the 2 files in Single.
+			O/P> Created directory: home/kali/.john
+			> john --wordlists=rockyou.txt unshadowed.txt --format=crypt	# crypt is format in which Linux encrypts the Passwords.
+			- This command cracks the Passwords of users and Root.
+		
+
+
+-->> exploit-db.com :: websites shows the Vulnerabilities and Bugs in Particular version of a Technology (Can be Web Technology, Servers, Cloud, 
+DBs etc). Information from this Website can be used to Exploit these Bugs and vulnerabilities of Victims System, Web site, Server and many more. <<-- 
+
+
+
+
+
+
+
+
