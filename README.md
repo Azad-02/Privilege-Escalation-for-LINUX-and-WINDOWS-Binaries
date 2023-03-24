@@ -1,6 +1,8 @@
 PRIVILEGE ESCALATION FOR UNIX BINARIES and  WINDOWS BINARIES
 
 
+
+
 GTFOBins is a curated list of UNIX Binaries that can be used to bypass local security restrictions in Misconfigured Systems.
       URL: https://gtfobins.github.io/
 
