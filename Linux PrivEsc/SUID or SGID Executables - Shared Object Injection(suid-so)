@@ -1,3 +1,10 @@
+SUID(Set-user Identification) and SGID(Set-group identification) are two special permissions that can be set on executable files, and These 
+permissions allow the file being executed to be executed with the privileges of the owner or the group. SUID/SGID files can have vulnerabilities 
+that can be exploited to gain root shell.
+
+Find all the SUID/SGID executables on the Debian VM:
+> find / -type f -a \( -perm -u+s -o -perm -g+s \) -exec ls -l {} \; 2> /dev/null
+
 The /usr/local/bin/suid-so SUID executable is vulnerable to shared object injection.
 
 First, execute the file and note that currently it displays a progress bar before exiting:
